@@ -1,0 +1,4 @@
+venv/
+model.pth
+data/
+__pycache__/
