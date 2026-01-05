@@ -2,9 +2,18 @@ from dataclasses import dataclass
 
 
 @dataclass
-class BreedPrediction:
+class Prediction:
     name: str
     probability: float
+
+
+# 後方互換性のためエイリアス
+BreedPrediction = Prediction
+
+
+@dataclass
+class TopNResult:
+    predictions: list[Prediction]
 
 
 @dataclass

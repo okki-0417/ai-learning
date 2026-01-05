@@ -1,24 +1,27 @@
-import sys
+import argparse
 
 from .model import load_model
 from .preprocess import preprocess_image
-from .classifier import classify
-from .presenter import print_result
+from .classifier import classify, classify_all
+from .presenter import print_result, print_top_n_result
 
 
 def main():
-    if len(sys.argv) < 2:
-        print("使い方: python -m dog_cat_classifier <画像ファイルパス>")
-        print("例: python -m dog_cat_classifier dog.jpg")
-        sys.exit(1)
-
-    image_path = sys.argv[1]
+    parser = argparse.ArgumentParser(description="犬猫画像分類器")
+    parser.add_argument("image_path", help="画像ファイルパス")
+    parser.add_argument("--all", "-a", action="store_true", help="全クラスからtop N予測を表示")
+    parser.add_argument("--top", "-n", type=int, default=5, help="表示する予測数 (default: 5)")
+    args = parser.parse_args()
 
     model, categories = load_model()
-    image_tensor = preprocess_image(image_path)
-    result = classify(model, image_tensor, categories)
+    image_tensor = preprocess_image(args.image_path)
 
-    print_result(result)
+    if args.all:
+        result = classify_all(model, image_tensor, categories, top_n=args.top)
+        print_top_n_result(result)
+    else:
+        result = classify(model, image_tensor, categories)
+        print_result(result)
 
 
 if __name__ == "__main__":

@@ -1,9 +1,13 @@
-.PHONY: run inspect setup
+.PHONY: run run-all inspect setup
 
 PYTHON = venv/bin/python
+TOP_N = 5
 
 run:
 	$(PYTHON) -m dog_cat_classifier $(IMG)
+
+run-all:
+	$(PYTHON) -m dog_cat_classifier --all --top $(TOP_N) $(IMG)
 
 inspect:
 	$(PYTHON) -m dog_cat_classifier.inspect_model

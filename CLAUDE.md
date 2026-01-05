@@ -17,14 +17,21 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 # Run classification
-python classify_dog_cat.py <image_path>
+python -m dog_cat_classifier <image_path>
 
-# Inspect model weights
-python inspect_model.py
+# Inspect model weights (run after classification to ensure weights are cached)
+python -m dog_cat_classifier.inspect_model
 ```
 
 ## Architecture
 
-- **classify_dog_cat.py**: Main classifier. Uses pretrained ResNet18, sums probabilities across ImageNet dog classes (151-268) and cat classes (281-285).
-- **inspect_model.py**: Utility to examine model weight structure.
-- Model weights cached at `~/.cache/torch/hub/checkpoints/`
+The `dog_cat_classifier` package follows a pipeline: `model.py` → `preprocess.py` → `classifier.py` → `presenter.py`
+
+- **model.py**: Loads pretrained ResNet18 with ImageNet weights. Defines dog class IDs (151-268) and cat class IDs (281-285).
+- **preprocess.py**: Image preprocessing with ImageNet normalization (resize to 256, center crop to 224).
+- **classifier.py**: Runs inference and sums probabilities across dog/cat class ranges to get final prediction.
+- **schemas.py**: Dataclasses for `ClassificationResult`, `Prediction`, and `TopNResult`.
+- **presenter.py**: Formats and prints classification results in Japanese.
+- **inspect_model.py**: Utility to examine ResNet18 weight structure.
+
+Model weights cached at `~/.cache/torch/hub/checkpoints/`

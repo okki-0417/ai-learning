@@ -1,4 +1,10 @@
-from .schemas import ClassificationResult
+from .schemas import ClassificationResult, TopNResult
+
+
+def print_top_n_result(result: TopNResult) -> None:
+    print("\n=== 予測結果 ===")
+    for i, pred in enumerate(result.predictions, 1):
+        print(f"{i}. {pred.name}: {pred.probability * 100:.1f}%")
 
 
 def print_result(result: ClassificationResult) -> None:
