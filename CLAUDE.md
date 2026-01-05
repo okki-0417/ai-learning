@@ -10,6 +10,7 @@ Machine learning study repository containing multiple projects. Each project has
 
 - **dog-cat-classifier/**: Image classification with PyTorch (pretrained models → custom CNN)
 - **text-generator/**: Character-level RNN for text generation
+- **transformer/**: Transformer from scratch for text generation
 
 ## Common Setup
 
