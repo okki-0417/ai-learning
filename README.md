@@ -28,6 +28,7 @@ PyTorchを使った画像分類。事前学習済みモデルの利用から始�
 
 ### [transformer](./transformer/)
 Transformerをゼロから実装して文章生成。GPT等のLLMの基礎を理解する。
+時間がかかるので Google Colab を初めて使ってみた。
 
 | Level | 内容 | 状態 |
 |-------|------|------|
